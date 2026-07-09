@@ -59,11 +59,7 @@ for i in range(iterations):
     theta0 = theta0 + (learning_rate/m) * np.sum(error)
     theta1 = theta1 + (learning_rate/m) * np.sum(error * X_train)
 
-print("Theta0 =", theta0)
-print("Theta1 =", theta1)
-
 y_test_pred = theta0 + theta1 * X_test
-
 mse = np.mean((y_test - y_test_pred) ** 2)
 rmse = np.sqrt(mse)
 mae = np.mean(np.abs(y_test - y_test_pred))
@@ -73,7 +69,6 @@ print("Theta0 (Intercept):", theta0)
 print("Theta1 (Slope):", theta1)
 
 print("\nPerformance Metrics")
-
 print("Mean Squared Error (MSE):", mse)
 print("Root Mean Squared Error (RMSE):", rmse)
 print("Mean Absolute Error (MAE):", mae)
@@ -91,13 +86,10 @@ rmse_normal = np.sqrt(mse_normal)
 mae_normal = np.mean(np.abs(y_test - y_test_pred_normal))
 r2_normal = r2_score(y_test, y_test_pred_normal)
 
-print("\n========== Normal Equation Results ==========")
-
 print("Theta0 (Intercept):", theta0_normal)
 print("Theta1 (Slope):", theta1_normal)
 
 print("\nPerformance Metrics")
-
 print("Mean Squared Error (MSE):", mse_normal)
 print("Root Mean Squared Error (RMSE):", rmse_normal)
 print("Mean Absolute Error (MAE):", mae_normal)
