@@ -37,7 +37,7 @@ for i in range(X.shape[1]):
 """
 X = X[:,0]
 X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=42)
-print("Trainig feature: ",X_train.shape)
+print("Training feature: ",X_train.shape)
 print("test target: ",y_test.shape)
 
 
@@ -56,10 +56,8 @@ m = len(X_train)
 for i in range(iterations):
     y_pred = theta0 + theta1 * X_train
     error = y_train - y_pred
-    d_theta0 = (-1 / m) * np.sum(error)
-    d_theta1 = (-1 / m) * np.sum(error * X_train)
-    theta0 = theta0 - learning_rate * d_theta0
-    theta1 = theta1 - learning_rate * d_theta1
+    theta0 = theta0 + (learning_rate/m) * np.sum(error)
+    theta1 = theta1 + (learning_rate/m) * np.sum(error * X_train)
 
 print("Theta0 =", theta0)
 print("Theta1 =", theta1)
