@@ -28,22 +28,27 @@ for feature in range(X.shape[1]):
 
     x = X[:, feature]
 
-    mean = np.mean(x)
-    std = np.std(x)
-
-    x = (x - mean) / std
-
-    mask = (x >= -3) & (x <= 3)
-
-    x = x[mask]
-    target = y[mask]
-
     X_train, X_test, y_train, y_test = train_test_split(
         x,
-        target,
+        y,
         test_size=0.2,
         random_state=42
     )
+
+    mean = np.mean(X_train)
+    std = np.std(X_train)
+
+    X_train = (X_train - mean) / std
+    X_test = (X_test - mean) / std
+
+    train_mask = (X_train >= -3) & (X_train <= 3)
+    test_mask = (X_test >= -3) & (X_test <= 3)
+
+    X_train = X_train[train_mask]
+    y_train = y_train[train_mask]
+
+    X_test = X_test[test_mask]
+    y_test = y_test[test_mask]
 
     theta0 = 0
     theta1 = 0
