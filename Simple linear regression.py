@@ -24,7 +24,7 @@ for feature in range(X.shape[1]):
 
     print("=" * 50)
     print("Feature:", housing.feature_names[feature])
-    print("=" * 100)
+    print("=" * 50)
 
     x = X[:, feature]
 
