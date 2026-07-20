@@ -63,7 +63,6 @@ for i in [2, 3, 4, 5]:
 
     x_train_poly = poly.fit_transform(x_train)
     x_test_poly = poly.transform(x_test)
-
     poly_model = LinearRegression()
     poly_model.fit(x_train_poly, y_train)
     y_pred_poly = poly_model.predict(x_test_poly)
