@@ -51,7 +51,7 @@ rmse = np.sqrt(mse)
 mae = np.mean(np.abs(y_test - y_pred_linear))
 r2 = r2_score(y_test,y_pred_linear)
 
-plt.figure(figsize=(10,6))
+plt.figure()
 plt.scatter(x_test, y_test, color="black", label="Actual Data")
 sorted_indices = np.argsort(x_test[:,0])
 plt.plot(
