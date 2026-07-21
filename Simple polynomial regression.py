@@ -50,13 +50,24 @@ mse = np.mean((y_test - y_pred_linear) ** 2)
 rmse = np.sqrt(mse)
 mae = np.mean(np.abs(y_test - y_pred_linear))
 r2 = r2_score(y_test,y_pred_linear)
+
+plt.figure(figsize=(10,6))
+plt.scatter(x_test, y_test, color="black", label="Actual Data")
+sorted_indices = np.argsort(x_test[:,0])
+plt.plot(
+    x_test[sorted_indices],
+    y_pred_linear[sorted_indices],
+    color="blue",
+    linewidth=2,
+    label="Linear Regression"
+)
+
 print("Linear Regression")
 print("MSE:", mse)
 print("RMSE:", rmse)
 print("MAE:", mae)
 print("R2:", r2)
 
-print("Polynomial Regression")
 for i in [2, 3, 4, 5]:
 
     poly = PolynomialFeatures(degree=i)
@@ -72,6 +83,13 @@ for i in [2, 3, 4, 5]:
     mae_poly = np.mean(np.abs(y_test - y_pred_poly))
     r2_poly = r2_score(y_test,y_pred_poly)
 
+    plt.plot(
+        x_test[sorted_indices],
+        y_pred_poly[sorted_indices],
+        linewidth=2,
+        label=f"Degree {i}"
+    )
+
     print("=" * 50)
     print("Polynomial Regression (Degree =", i, ")")
     print("=" * 50)
@@ -80,4 +98,9 @@ for i in [2, 3, 4, 5]:
     print("MAE:", mae_poly)
     print("R2:", r2_poly)
 
-    # Print results
+plt.xlabel("Normalized Displacement")
+plt.ylabel("Miles Per Gallon (MPG)")
+plt.title("Linear Regression vs Polynomial Regression")
+plt.legend()
+plt.grid(True)
+plt.show()
