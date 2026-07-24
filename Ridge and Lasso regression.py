@@ -75,7 +75,6 @@ plt.scatter(y_test, lasso.predict(X_test), label="Lasso Regression")
 minimum = min(y_test)
 maximum = max(y_test)
 
-plt.plot([minimum, maximum], [minimum, maximum], 'k--')
 plt.xlabel("Actual Values")
 plt.ylabel("Predicted Values")
 plt.title("Actual vs Predicted")
