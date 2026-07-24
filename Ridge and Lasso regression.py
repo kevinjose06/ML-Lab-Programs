@@ -71,10 +71,6 @@ plt.figure(figsize=(8,6))
 plt.scatter(y_test, linear.predict(X_test), label="Linear Regression")
 plt.scatter(y_test, ridge.predict(X_test), label="Ridge Regression")
 plt.scatter(y_test, lasso.predict(X_test), label="Lasso Regression")
-
-minimum = min(y_test)
-maximum = max(y_test)
-
 plt.xlabel("Actual Values")
 plt.ylabel("Predicted Values")
 plt.title("Actual vs Predicted")
