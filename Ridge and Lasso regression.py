@@ -10,7 +10,6 @@ Tasks:
 
 import numpy as np
 import matplotlib.pyplot as plt
-
 from sklearn.datasets import load_diabetes
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -18,7 +17,6 @@ from sklearn.linear_model import LinearRegression, RidgeCV, LassoCV
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 diabetes = load_diabetes()
-
 X = diabetes.data
 y = diabetes.target
 
@@ -39,7 +37,6 @@ linear.fit(X_train, y_train)
 
 ridge = RidgeCV(alphas=[0.01, 0.1, 1, 10, 100], cv=5)
 ridge.fit(X_train, y_train)
-
 lasso = LassoCV(alphas=[0.01, 0.1, 1, 10, 100], cv=5, random_state=42)
 lasso.fit(X_train, y_train)
 
@@ -79,11 +76,9 @@ minimum = min(y_test)
 maximum = max(y_test)
 
 plt.plot([minimum, maximum], [minimum, maximum], 'k--')
-
 plt.xlabel("Actual Values")
 plt.ylabel("Predicted Values")
 plt.title("Actual vs Predicted")
 plt.legend()
 plt.grid(True)
-
 plt.show()
