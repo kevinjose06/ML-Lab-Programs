@@ -53,7 +53,6 @@ def train_logistic_regression(X,y,regularization=None,lam=0,learning_rate=0.1,ep
     return theta, theta0
 
 def predict(X, theta, theta0):
-
     z = np.dot(X, theta) + theta0
     y_pred = sigmoid(z)
     prediction = (y_pred >= 0.5).astype(int)
