@@ -63,3 +63,8 @@ print("F1-score:", multinomial_f1)
 print("\nBernoulli Naive Bayes")
 print("Accuracy:", bernoulli_accuracy)
 print("F1-score:", bernoulli_f1)
+
+if multinomial_accuracy >= bernoulli_accuracy:
+    print("\nMultinomial Naive Bayes is better than Binomial Naive Bayes")
+else:
+    print("\nBinomial Naive Bayes is better than Multinomial Naive Bayes")
