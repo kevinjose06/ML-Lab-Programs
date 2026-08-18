@@ -1,3 +1,15 @@
+'''
+Implement the K-Nearest Neighbors (KNN) algorithm for image classification using the
+Fashion MNIST dataset. Experiment with different values of K and analyze their impact
+on model performance.
+Tasks:
+● Load and preprocess the Fashion MNIST dataset.
+● Implement KNN for multi-class classification.
+● Experiment with different values of K and evaluate performance.
+● Discuss the impact of different K values on model accuracy and computational
+efficiency.
+'''
+
 from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -36,13 +48,6 @@ for k in k_values:
     print("K =", k)
     print("Accuracy :", accuracy)
     print()
-
-print("========== COMPARISON ==========")
-for i in range(len(k_values)):
-    print(
-        "K =", k_values[i],
-        "Accuracy =", results[i]
-    )
 
 best_index = results.index(max(results))
 best_k = k_values[best_index]
