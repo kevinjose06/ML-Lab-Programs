@@ -31,9 +31,7 @@ x = x[mask]
 y = y[mask]
 '''
 
-x_train,x_test,y_train,y_test = train_test_split(
-    x,y,test_size=0.2,random_state=42
-)
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=42)
 
 mean = np.mean(x_train)
 std = np.std(x_train)
@@ -54,13 +52,7 @@ r2 = r2_score(y_test,y_pred_linear)
 plt.figure()
 plt.scatter(x_test, y_test, color="black", label="Actual Data")
 sorted_indices = np.argsort(x_test[:,0])
-plt.plot(
-    x_test[sorted_indices],
-    y_pred_linear[sorted_indices],
-    color="blue",
-    linewidth=2,
-    label="Linear Regression"
-)
+plt.plot(x_test[sorted_indices],y_pred_linear[sorted_indices],color="blue",linewidth=2,label="Linear Regression")
 
 print("Linear Regression")
 print("MSE:", mse)
@@ -83,12 +75,7 @@ for i in [2, 3, 4, 5]:
     mae_poly = np.mean(np.abs(y_test - y_pred_poly))
     r2_poly = r2_score(y_test,y_pred_poly)
 
-    plt.plot(
-        x_test[sorted_indices],
-        y_pred_poly[sorted_indices],
-        linewidth=2,
-        label=f"Degree {i}"
-    )
+    plt.plot(x_test[sorted_indices],y_pred_poly[sorted_indices],linewidth=2,label=f"Degree {i}")
 
     print("=" * 50)
     print("Polynomial Regression (Degree =", i, ")")
