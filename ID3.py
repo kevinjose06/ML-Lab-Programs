@@ -26,7 +26,8 @@ df=df[(df["Quantity"]>0)&(df["UnitPrice"]>0)]
 df["TotalAmount"]=df["Quantity"]*df["UnitPrice"]
 print("After preprocessing: ",df.shape)
 
-customer_data=df.groupby("CustomerID").agg(TotalSpent=("TotalAmount","sum"),TotalQuantity=("Quantity","sum"),NumInvoices=("InvoiceNo","nunique"),UniqueProducts=("StockCode","nunique"),AvgOrderValue=("TotalAmount","mean")).reset_index()
+customer_data=df.groupby("CustomerID").agg(TotalSpent=("TotalAmount","sum"),TotalQuantity=("Quantity","sum"),
+NumInvoices=("InvoiceNo","nunique"),UniqueProducts=("StockCode","nunique"),AvgOrderValue=("TotalAmount","mean")).reset_index()
 customer_data["PurchaseFrequency"]=(customer_data["NumInvoices"]/customer_data["NumInvoices"].max())
 customer_data["Segment"]=pd.qcut(customer_data["TotalSpent"],q=3,labels=["Low","Medium","High"])
 
