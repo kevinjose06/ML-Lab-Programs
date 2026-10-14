@@ -16,7 +16,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 
-wine = fetch_openml(name='wine-quality-red', version=1, as_frame=True)
+wine = fetch_openml(name='wine-quality-red', version=1, as_frame=False)
 
 X = wine.data
 y = wine.target.astype(int)
