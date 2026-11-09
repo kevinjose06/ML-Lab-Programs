@@ -21,10 +21,8 @@ from sklearn.metrics import mean_squared_error
 
 data = fetch_openml(name='boston', version=1, as_frame=False)
 
-X_all = data.data
+X = data.data[:, [12]]
 y = data.target.astype(float)
-
-X = X_all[:, [12]]
 
 X_train, X_val, y_train, y_val = train_test_split(
     X, y, test_size=0.3, random_state=42
