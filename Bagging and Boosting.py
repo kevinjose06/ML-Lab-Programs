@@ -13,34 +13,37 @@ performance.
 method.
 '''
 
-import pandas as pd
+import numpy as np
+from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler,OneHotEncoder
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import BaggingClassifier, AdaBoostClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.ensemble import BaggingClassifier,AdaBoostClassifier
+from sklearn.metrics import accuracy_score
 
-df = pd.read_csv("https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv")
+t = fetch_openml(name = "titanic",version = 1,as_frame = True)
+x = t.data
+y = t.target.astype(int)
 
-X = df[['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare']].copy()
-y = df['Survived']
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size = 0.2,random_state = 42)
 
-X['Sex'] = X['Sex'].map({'male': 0, 'female': 1})
-X['Age'] = X['Age'].fillna(X['Age'].median())
-X['Fare'] = X['Fare'].fillna(X['Fare'].median())
+nf = [3,4,5,7]
+cf = [0,2,9]
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+nt = Pipeline([("imputer",SimpleImputer(strategy='median')),("scaler",StandardScaler())])
+ct = Pipeline([("imputer",SimpleImputer(strategy='most_frequent')),("encoder",OneHotEncoder(handle_unknown="ignore"))])
 
-bag = BaggingClassifier(estimator=DecisionTreeClassifier(),n_estimators=50,random_state=42)
-bag.fit(X_train, y_train)
-bag_pred = bag.predict(X_test)
+p = ColumnTransformer([("num",nt,nf),("cat",ct,cf)])
 
-boost = AdaBoostClassifier(estimator=DecisionTreeClassifier(max_depth=1),n_estimators=50,random_state=42)
-boost.fit(X_train, y_train)
-boost_pred = boost.predict(X_test)
+bc = Pipeline([("preprocessor",p),("model",BaggingClassifier(estimator=DecisionTreeClassifier(max_depth=2,criterion="entropy",random_state=42),n_estimators = 5,random_state=42))])
+bc.fit(x_train,y_train)
+bcp = bc.predict(x_test)
+print("Bagging accuracy: ",accuracy_score(y_test,bcp))
 
-for name, pred in [('Bagging', bag_pred), ('Boosting', boost_pred)]:
-    print("\n", name)
-    print("Accuracy:", accuracy_score(y_test, pred))
-    print("Precision:", precision_score(y_test, pred, zero_division=0))
-    print("Recall:", recall_score(y_test, pred, zero_division=0))
-    print("F1-score:", f1_score(y_test, pred, zero_division=0))
+ac = Pipeline([("preprocessor",p),("model",AdaBoostClassifier(estimator=DecisionTreeClassifier(max_depth=2,criterion="entropy",random_state=42),n_estimators = 5,random_state = 42))])
+ac.fit(x_train,y_train)
+acp = ac.predict(x_test)
+print("Boosting accuracy: ",accuracy_score(y_test,acp))
